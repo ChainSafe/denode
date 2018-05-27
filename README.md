@@ -1,3 +1,5 @@
+![Alt text](https://raw.githubusercontent.com/ChainSafeSystems/denode/master/denode.png "Optional Title")
+
 # Aragon Bare Boilerplate
 
 > 🕵️ [Find more boilerplates using GitHub](https://github.com/search?q=topic:aragon-boilerplate) | 
