@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.18;
 
 //import "./SafeMath.sol";
 import "./SplitPayment.sol";
@@ -13,7 +13,7 @@ contract ISplitPayment is SplitPayment {
 	address owner;
 	address[] _payees;
 	uint256[] _shares;
-	function ISplitPayment () SplitPayment(_payees, _shares) {
+	function ISplitPayment() SplitPayment(_payees, _shares) {
 		owner = msg.sender;
 	}
 

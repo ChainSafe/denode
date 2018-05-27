@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.18;
 
 import "@aragon/os/contracts/lib/zeppelin/math/SafeMath.sol";
 
@@ -21,7 +21,7 @@ contract SplitPayment {
   /**
    * @dev Constructor
    */
-  constructor(address[] _payees, uint256[] _shares) public payable {
+  function SplitPayment(address[] _payees, uint256[] _shares) public payable {
     require(_payees.length == _shares.length);
 
     for (uint256 i = 0; i < _payees.length; i++) {

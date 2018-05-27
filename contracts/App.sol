@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 
 import "@aragon/os/contracts/apps/AragonApp.sol";
 import "./NodeRegistry.sol";
-import "./ClientRegistry.sol";
+//import "./ClientRegistry.sol";
 import "./VerifierRegistry.sol";
 import "./ISplitPayment.sol";
 
@@ -23,12 +23,16 @@ contract App is AragonApp {
  
  	event PayoutReady(address _node);
 
+ 	function App(address _nodeRegistry, address _verifierRegistry){
+ 		nodeRegistry = NodeRegistry(_nodeRegistry);
+ 		verifierRegistry = VerifierRegistry(_verifierRegistry);
+ 	}
     function initialize(string _name) onlyInit {
         initialized();
 
-        nodeRegistry = new NodeRegistry();
+        //nodeRegistry = new NodeRegistry();
         //clientRegistry = new ClientRegistry();
-        verifierRegistry = new VerifierRegistry();
+        //verifierRegistry = new VerifierRegistry();
     }
 
     function () payable {}
@@ -44,7 +48,7 @@ contract App is AragonApp {
     	if(_valid) votesOnNode[_node]++;
     	if(votesOnNode[_node] > 0 && !_valid) votesOnNode[_node]--;
 
-    	if(votesOnNode[_node] >= payoutNodeThreshold) payNode(_node);
+    	//if(votesOnNode[_node] >= payoutNodeThreshold) payNode(_node);
   		return true;
     }
 

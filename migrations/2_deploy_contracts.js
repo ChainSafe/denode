@@ -7,11 +7,7 @@ var VerifierRegistry = artifacts.require('./VerifierRegistry.sol')*/
 //var ACL = artifacts.require("../node_modules/@aragon/os/contracts/acl/ACL.sol");
 
 module.exports = function (deployer) {
-  deployer.deploy(App, {gasLimit: 67000000})
-  /*deployer.deploy(QueueContract)
-  deployer.deploy(NodeRegistry)
-  deployer.deploy(ClientRegistry)
-  deployer.deploy(VerifierRegistry)*/
-  //deployer.deploy(Kernel)
-  //deployer.deploy(ACL)
+	deployer.deploy(NodeRegistry)
+	deployer.deploy(VerifierRegistry)
+  	deployer.deploy(App)
 }
