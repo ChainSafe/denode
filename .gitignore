@@ -4,4 +4,4 @@ node_modules
 # Build dirs
 .cache/
 build/
-dist/
+

@@ -17,16 +17,24 @@ contract SplitPayment {
   mapping(address => uint256) public shares;
   mapping(address => uint256) public released;
   address[] public payees;
+  address owner;
+  bool public isPayoutReady;
 
   /**
    * @dev Constructor
    */
   function SplitPayment(address[] _payees, uint256[] _shares) public payable {
+    owner = msg.sender;
     require(_payees.length == _shares.length);
 
     for (uint256 i = 0; i < _payees.length; i++) {
       addPayee(_payees[i], _shares[i]);
     }
+  }
+
+  function setFlag() {
+    require (msg.sender == owner);
+    isPayoutReady = true;
   }
 
   /**

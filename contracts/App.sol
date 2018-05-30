@@ -4,7 +4,7 @@ import "@aragon/os/contracts/apps/AragonApp.sol";
 import "./NodeRegistry.sol";
 //import "./ClientRegistry.sol";
 import "./VerifierRegistry.sol";
-import "./ISplitPayment.sol";
+import "./SplitPayment.sol";
 
 contract App is AragonApp {
 	bytes32 public constant VERIFIER = keccak256("VERIFIER");
@@ -15,7 +15,7 @@ contract App is AragonApp {
 
 	mapping (address => uint) votesOnNode;
 	mapping (address => address[]) votersOnNode;
-	mapping (address => ISplitPayment) payouts;
+	mapping (address => SplitPayment) payouts;
 
     NodeRegistry nodeRegistry;
     //ClientRegistry clientRegistry;
@@ -23,16 +23,16 @@ contract App is AragonApp {
  
  	event PayoutReady(address _node);
 
- 	function App(address _nodeRegistry, address _verifierRegistry){
+ 	/*function App(){//address _nodeRegistry, address _verifierRegistry){
  		nodeRegistry = NodeRegistry(_nodeRegistry);
  		verifierRegistry = VerifierRegistry(_verifierRegistry);
- 	}
+ 	}*/
     function initialize(string _name) onlyInit {
         initialized();
 
-        //nodeRegistry = new NodeRegistry();
+        nodeRegistry = new NodeRegistry();
         //clientRegistry = new ClientRegistry();
-        //verifierRegistry = new VerifierRegistry();
+        verifierRegistry = new VerifierRegistry();
     }
 
     function () payable {}
@@ -40,7 +40,9 @@ contract App is AragonApp {
     function vote(address _node, bool _valid) auth(VERIFIER) returns (bool) {
     	if(nodeRegistry.nodeCoinbaseToIp(_node) != 0x0) return false;
 
-    	if(votersOnNode[_node].length == 0) payouts[_node] = new ISplitPayment();
+    	address[] _payees;
+		uint256[] _shares;
+    	if(votersOnNode[_node].length == 0) payouts[_node] = new SplitPayment(_payees, _shares);
 
     	votersOnNode[_node].push(msg.sender);
     	payouts[_node].addPayee(msg.sender, 1);
