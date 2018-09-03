@@ -1,5 +1,3 @@
-![Alt text](https://raw.githubusercontent.com/ChainSafeSystems/denode/master/denode.png "Optional Title")
-
 # denode
 
 > Huge thanks to the ECF for helping to fund this project! <3
@@ -49,5 +47,7 @@ Build a mechanism that:
 
 ![Verifying](https://raw.githubusercontent.com/ChainSafeSystems/denode/master/images/denode-verifying.png)
 
+
+## Contact
 
 Interested in helping out or learning more? `info@chainsafe.io`
