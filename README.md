@@ -43,3 +43,5 @@ Build a mechanism that:
 ### Component Six: Community Engagement and Marketing
 - Engage developers for feedback and auditing
 - Incentivise users to migrate
+
+>info@chainsafe.io
