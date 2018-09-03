@@ -44,4 +44,5 @@ Build a mechanism that:
 - Engage developers for feedback and auditing
 - Incentivise users to migrate
 
->info@chainsafe.io
+### Contact
+info@chainsafe.io
