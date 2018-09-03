@@ -1,5 +1,3 @@
-![Alt text](https://raw.githubusercontent.com/ChainSafeSystems/denode/master/denode.png "Optional Title")
-
 # denode
 
 > Huge thanks to the ECF for helping to fund this project! <3
@@ -11,7 +9,7 @@ To address this issue, ChainSafe introduces Denode, a fully decentralized, open-
 
 
 ## Road Map
-The project consists of five main components, some of which can be concurrent, and others which are consecutive.
+The project consists of six main components, some of which can be concurrent, and others which are consecutive.
 
 ### Component One: Research and Development (1 month)
 - Outline a precise application flow and architecture
@@ -44,5 +42,12 @@ Build a mechanism that:
 - Engage developers for feedback and auditing
 - Incentivise users to migrate
 
-### Contact
-info@chainsafe.io
+## Diagrams
+![Connecting](https://raw.githubusercontent.com/ChainSafeSystems/denode/master/images/denode-connecting.png)
+
+![Verifying](https://raw.githubusercontent.com/ChainSafeSystems/denode/master/images/denode-verifying.png)
+
+
+## Contact
+
+Interested in helping out or learning more? `info@chainsafe.io`
