@@ -5,7 +5,7 @@
 ## Overview
 To use the Ethereum network today, as a user and a developer, one needs to use Infura or have to setup and maintain a node themselves. In its current state, Infura is a centralized service that facilitates access to Ethereum and is an almost essential component of it. Being the only reliable service that provides such essential tools, Infura poses a risk to the Ethereum blockchain as it provides centralized access to a decentralized blockchain, essentially withering away the benefits of decentralization.
 
-To address this issue, ChainSafe introduces Denode, a fully decentralized, open-source solution that simplifies access to Ethereum in a safe and reliable manner and incentivizes users to run full nodes. Denode introduces monetary incentives for running full nodes in a decentralized manner as a mechanism for improving the security and stability of the network.
+To address this issue, ChainSafe introduces Denode, a fully decentralized, open-source solution that simplifies access to Ethereum in a safe and reliable manner. Incentivizing users to run full nodes, Denode introduces monetary incentives for running full nodes in a decentralized manner as a mechanism for improving the security and stability of the network.
 
 
 ## Road Map
