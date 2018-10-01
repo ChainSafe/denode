@@ -1,6 +1,6 @@
 # denode
 
-> Huge thanks to the ECF for helping to fund this project! <3
+> Huge thanks to the Ethereum Community Fund for helping to fund this project! <3
 
 ## Overview
 To use the Ethereum network today, as a user and a developer, one needs to use Infura or have to setup and maintain a node themselves. In its current state, Infura is a centralized service that facilitates access to Ethereum and is an almost essential component of it. Being the only reliable service that provides such essential tools, Infura poses a risk to the Ethereum blockchain as it provides centralized access to a decentralized blockchain, essentially withering away the benefits of decentralization.
