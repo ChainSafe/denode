@@ -18,7 +18,7 @@ contract Registration {
 	event Renewal(address _addr, uint256 _timestamp);
 
 	// registers msg.sender and records their time of registration
-	// as well, a hash of their password must be submitted
+	// also, starts their first subscription
 	function register() public {
 		// user cannot have registered before
 		require(timeOfRegistration[msg.sender] == 0);
@@ -27,6 +27,7 @@ contract Registration {
 		emit Registration(msg.sender, block.timestamp);
 	}
 
+	// renews msg.sender's subscription
 	function renew() public {
 		if (expiryTime[msg.sender] < now) {
 			// if user's subscription time has run out, start subscription from now
@@ -36,5 +37,10 @@ contract Registration {
 			expiryTime[msg.sender] = expiryTime + subscriptionTime;
 		}
 		emit Renewal(msg.sender, block.timestamp);
+	}
+
+	// returns true if _addr has an active subscription, false otherwise
+	function subscribed(address _addr) public returns (bool) {
+		return (expiryTime[_addr] < now);
 	}
 }
