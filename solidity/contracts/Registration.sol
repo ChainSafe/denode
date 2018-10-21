@@ -8,13 +8,13 @@ contract Registration {
 	mapping (address => uint256) expiryTime;
 
 	// time allowed to access a node before renewal is required
-	constant uint256 subscriptionTime = 7 days;
+	uint256 constant subscriptionTime = 7 days;
 
 	// price to register, if needed in the future
-	constant uint256 decimals = 10 ** 18;
-	constant uint256 registrationPrice = 1 * decimals;
+	uint256 constant decimals = 10 ** 18;
+	uint256 constant registrationPrice = 1 * decimals;
 
-	event Registration(address _addr, uint256 _timestamp);
+	event Registrated(address _addr, uint256 _timestamp);
 	event Renewal(address _addr, uint256 _timestamp);
 
 	// registers msg.sender and records their time of registration
@@ -24,7 +24,7 @@ contract Registration {
 		require(timeOfRegistration[msg.sender] == 0);
 		timeOfRegistration[msg.sender] = block.timestamp;
 		expiryTime[msg.sender] = block.timestamp + subscriptionTime;
-		emit Registration(msg.sender, block.timestamp);
+		emit Registrated(msg.sender, block.timestamp);
 	}
 
 	// renews msg.sender's subscription
@@ -34,13 +34,13 @@ contract Registration {
 			expiryTime[msg.sender] = now + subscriptionTime;
 		} else {
 			// if user's subscription has not run out, start subscription from old expiry time
-			expiryTime[msg.sender] = expiryTime + subscriptionTime;
+			expiryTime[msg.sender] = expiryTime[msg.sender] + subscriptionTime;
 		}
 		emit Renewal(msg.sender, block.timestamp);
 	}
 
 	// returns true if _addr has an active subscription, false otherwise
-	function subscribed(address _addr) public returns (bool) {
+	function subscribed(address _addr) public view returns (bool) {
 		return (expiryTime[_addr] < now);
 	}
 }
