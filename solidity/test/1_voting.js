@@ -14,6 +14,7 @@ contract('Voting', async (accounts) => {
     it('should add a node with a starting score of zero', async () => {
         voting = await Voting.deployed()
         let res = await voting.addNode.call(NODE_A, {from: NODE_A_ADDR})
+	let hash = await voting.addNode(NODE_A, {from: NODE_A_ADDR})
         console.log('Added node A')
         assert(res, 'Adding node failed.')
 
@@ -25,11 +26,13 @@ contract('Voting', async (accounts) => {
     it('should allow a node to vote on another', async () => {
         // Add a second node
         let res = await voting.addNode.call(NODE_B, {from: NODE_B_ADDR})
+	let hash = await voting.addNode(NODE_B, {from: NODE_B_ADDR})
         console.log('Added node B')
         assert(res, 'Adding node failed.')
 
         // Let B vote on A
-        res = await voting.vote(NODE_A, 1, {from: NODE_B_ADDR})
+	res = await voting.vote.call(NODE_A, 1, {from: NODE_B_ADDR})
+        hash = await voting.vote(NODE_A, 1, {from: NODE_B_ADDR})
         console.log('Submitted vote')
         assert(res, 'Submitting vote failed.')
 
@@ -37,7 +40,7 @@ contract('Voting', async (accounts) => {
         // Check A's new score
         res = await voting.getScore.call({from: NODE_A_ADDR})
         console.log('Got score of node A')
-        assert(res === 1, `A does not have the correct score. Expected: 1; Got: ${res}`)
+        assert(res == 1, `A does not have the correct score. Expected: 1; Got: ${res}`)
     })
 
 
