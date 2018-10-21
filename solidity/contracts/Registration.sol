@@ -14,7 +14,7 @@ contract Registration {
 	uint256 constant decimals = 10 ** 18;
 	uint256 constant registrationPrice = 1 * decimals;
 
-	event Registrated(address _addr, uint256 _timestamp);
+	event Registered(address _addr, uint256 _timestamp);
 	event Renewal(address _addr, uint256 _timestamp);
 
 	// registers msg.sender and records their time of registration
@@ -24,7 +24,7 @@ contract Registration {
 		require(timeOfRegistration[msg.sender] == 0);
 		timeOfRegistration[msg.sender] = block.timestamp;
 		expiryTime[msg.sender] = block.timestamp + subscriptionTime;
-		emit Registrated(msg.sender, block.timestamp);
+		emit Registered(msg.sender, block.timestamp);
 	}
 
 	// renews msg.sender's subscription
