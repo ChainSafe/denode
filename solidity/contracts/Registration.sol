@@ -2,10 +2,10 @@ pragma solidity ^0.4.24;
 
 contract Registration {
 	// unix block timestamp of registration
-	mapping (address => uint256) timeOfRegistration;
+	mapping (address => uint256) public timeOfRegistration;
 
 	// time when subscription expires
-	mapping (address => uint256) expiryTime;
+	mapping (address => uint256) public expiryTime;
 
 	// time allowed to access a node before renewal is required
 	uint256 constant subscriptionTime = 7 days;
@@ -14,8 +14,8 @@ contract Registration {
 	uint256 constant decimals = 10 ** 18;
 	uint256 constant registrationPrice = 1 * decimals;
 
-	event Registered(address _addr, uint256 _timestamp);
-	event Renewal(address _addr, uint256 _timestamp);
+	event Registered(address indexed _addr, uint256 indexed _now, uint256 indexed _expiry);
+	event Renewal(address indexed _addr, uint256 indexed _now, uint256 indexed _expiry);
 
 	// registers msg.sender and records their time of registration
 	// also, starts their first subscription
@@ -24,7 +24,7 @@ contract Registration {
 		require(timeOfRegistration[msg.sender] == 0);
 		timeOfRegistration[msg.sender] = block.timestamp;
 		expiryTime[msg.sender] = block.timestamp + subscriptionTime;
-		emit Registered(msg.sender, block.timestamp);
+		emit Registered(msg.sender, block.timestamp, expiryTime[msg.sender]);
 	}
 
 	// renews msg.sender's subscription
@@ -36,7 +36,7 @@ contract Registration {
 			// if user's subscription has not run out, start subscription from old expiry time
 			expiryTime[msg.sender] = expiryTime[msg.sender] + subscriptionTime;
 		}
-		emit Renewal(msg.sender, block.timestamp);
+		emit Renewal(msg.sender, block.timestamp, expiryTime[msg.sender]);
 	}
 
 	// returns true if _addr has an active subscription, false otherwise
