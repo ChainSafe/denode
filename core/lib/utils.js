@@ -1,6 +1,6 @@
-const request = require('request')
+const request = require('request-promise')
 
-async function sendNodeRequest(url, method, data){
+const sendNodeRequest = async(url, method, data) => {
   let options = {
     url: url,
     method: "post",
@@ -11,14 +11,10 @@ async function sendNodeRequest(url, method, data){
     body: JSON.stringify( {"jsonrpc": "1.0", "id": 1, "method": method, "params": [data] })
   };
 
-  request(options, (error, response, body) => {
-      if (error) {
-          console.error('An error has occurred: ', error);
-      } else {
-          console.log('Post successful: response: ', body);
-          return body
-      }
-  });
+  let res = await request(options).catch((e) => {
+    console.error(e)
+  })
+  return res
 }
 
 module.exports = {sendNodeRequest}
