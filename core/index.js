@@ -1,30 +1,39 @@
 const enode = require("./lib/enode.js")
 const pubsub = require("./lib/pubsub.js")
 const logger = require("./lib/logger.js")
+const cli = require("commander")
 
-let node
+cli
+  .version('0.1.0')
+  .option('--bootstrap [name]', 'libp2p address to add to bootstrappers list')
+  .option('--enode [url]', 'specify enode address')
+  .parse(process.argv)
+
+//if (!process.argv.slice(2).length) cli.help()
 
 const startPubsub = async() => {
-  pubsub.createNode((err, _node) => {
-      if (err) throw err //. todo: actual error handling
-      pubsub.printAddrs(_node)
-      node = _node
+  return new Promise(function(resolve, reject) {
+    pubsub.createNode((err, node) => {
+        if (err) throw err //. todo: actual error handling
+        pubsub.printAddrs(node)
 
-      node.on('peer:discovery', (peer) => {
-        //logger.Info(`discovered: ${peer.id.toB58String()}`)
-        node.dial(peer, () => {})
+        node.on('peer:discovery', (peer) => {
+          //logger.Info(`discovered: ${peer.id.toB58String()}`)
+          node.dial(peer, () => {})
+      })
+
+      node.on('peer:connect', (peer) => {
+          logger.info(`connected: ${peer.id.toB58String()}`)
+          pubsub.publishPoolRequest()
+      })
+
+      node.on('peer:disconnect', (peer) => {
+          logger.info(`disconnected: ${peer.id.toB58String()}`)
+      })
+
+      pubsub.subscribePoolRequest()
     })
-
-    node.on('peer:connect', (peer) => {
-        logger.info(`connected: ${peer.id.toB58String()}`)
-        pubsub.publishPoolRequest()
-    })
-
-    node.on('peer:disconnect', (peer) => {
-        logger.info(`disconnected: ${peer.id.toB58String()}`)
-    })
-
-    pubsub.subscribePoolRequest()
+    resolve(node)
   })
 }
 
@@ -37,7 +46,7 @@ const start = async() => {
     logger.warn(`did not connect to client`)
   }
 
-  startPubsub()
+  let node = await startPubsub()
 }
 
 start() 

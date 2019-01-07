@@ -1,5 +1,6 @@
 'use strict'
 
+const logger = require("./logger.js")
 const libp2p = require("libp2p")
 const TCP = require("libp2p-tcp")
 const PeerInfo = require("peer-info")
@@ -9,8 +10,8 @@ const Mplex = require("libp2p-mplex")
 const SECIO = require('libp2p-secio')
 const Bootstrap = require('libp2p-bootstrap')
 
-const bootstrappers = [
-'/ip4/127.0.0.1/tcp/38983/ipfs/QmcTEBqEJ6hDX4fE4F9auWY2pG2oeuiXhHmF3YLPrvYveJ'
+let bootstrappers = [
+	'/ip4/127.0.0.1/tcp/34663/ipfs/Qmerv7DGwe5dtZsMfhnbzPMyFwoECAio9vBqUoUj25D6g7'
 ]
 
 let node
@@ -43,6 +44,7 @@ class MyBundle extends libp2p {
 }
 
 function createNode(callback) {
+	if(cli.bootstrap) bootstrappers.push(cli.bootstrap)
 	waterfall([
 		(cb) => PeerInfo.create(cb),
 		(peerInfo, cb) => {
